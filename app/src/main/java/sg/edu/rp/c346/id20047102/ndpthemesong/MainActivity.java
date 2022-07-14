@@ -72,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Insert successful",
                             Toast.LENGTH_SHORT).show();
                 }
+
+                etTitle.setText("");
+                etSinger.setText("");
+                etYear.setText("");
+                rdgRatings.clearCheck();
+
             }
 
         });

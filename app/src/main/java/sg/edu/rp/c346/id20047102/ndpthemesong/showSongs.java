@@ -16,8 +16,11 @@ public class showSongs extends AppCompatActivity {
 
     Button btn5Stars;
     ArrayList<Song> al;
+    ArrayList<Song> filteredList;
     ListView lv;
     ArrayAdapter<Song> aa;
+    Song data;
+    Boolean state = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +31,21 @@ public class showSongs extends AppCompatActivity {
         lv = findViewById(R.id.lv);
 
         al = new ArrayList<Song>();
-        aa = new ArrayAdapter<Song>(this, android.R.layout.simple_list_item_1, al);
+        filteredList = new ArrayList<Song>();
+        aa = new ArrayAdapter<Song>(this, android.R.layout.simple_list_item_1, filteredList);
         lv.setAdapter(aa);
 
         DBHelper dbh = new DBHelper(showSongs.this);
         al.clear();
         al.addAll(dbh.getAllSongs());
+        filteredList.addAll(dbh.getAllSongs());
         aa.notifyDataSetChanged();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int
                     position, long identity) {
-                Song data = al.get(position);
+                Song data = filteredList.get(position);
                 Intent i = new Intent(showSongs.this,
                         editSongs.class);
                 i.putExtra("data", data);
@@ -48,6 +53,27 @@ public class showSongs extends AppCompatActivity {
             }
         });
 
+        btn5Stars.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                state = !state;
+                filteredList.clear();
+                if (state) {
+                    btn5Stars.setText("Reset list");
+                    for (Song element : al
+                    ) {
+                        if (element.getStars() == 5) {
+                            filteredList.add(element);
+                        }
+                    }
+                } else {
+                    btn5Stars.setText("show all songs with 5 stars");
+                    filteredList.addAll(dbh.getAllSongs());
+                }
+
+                aa.notifyDataSetChanged();
+            }
+        });
 
     }
 
