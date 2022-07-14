@@ -83,7 +83,6 @@ public class editSongs extends AppCompatActivity {
                 } else if (checkedRadioButtonId == R.id.star5edit) {
                     data.setStars(5);
                 }
-
                 dbh.updateNote(data);
                 dbh.close();
                 finish();

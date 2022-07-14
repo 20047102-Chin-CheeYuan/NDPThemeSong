@@ -12,9 +12,16 @@
         android:layout_height="wrap_content"
         android:text="show all songs with 5 stars" />
 
+    <Spinner
+        android:id="@+id/spinnerYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinnerItems"
+        android:minHeight="48dp" />
+
+
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp" />
+        android:layout_height="match_parent" />
 </LinearLayout>
